@@ -1,8 +1,8 @@
 # Midnight Web
 
 Midnight Web is a Lua colorscheme plugin for Neovim. It includes three dark
-variants: Classic, Deep, and Soft. Classic is the default. It has no third-party
-runtime dependencies.
+variants (Classic, Deep, and Soft) and Midnight Web Light. Classic is the default.
+It has no third-party runtime dependencies.
 
 ## Install
 
@@ -20,9 +20,9 @@ runtime dependencies.
 }
 ```
 
-Replace `classic` with `deep` or `soft` to choose another variant. In LazyVim,
-the colorscheme can also be set through the usual `colorscheme` option after
-installing the plugin.
+Replace `classic` with `deep`, `soft`, or `light` to choose another variant.
+In LazyVim, the colorscheme can also be set through the usual `colorscheme`
+option after installing the plugin.
 
 ### Native package directory
 
@@ -52,7 +52,16 @@ vim.cmd.colorscheme("midnight-web")
 
 Calling `setup()` while Midnight Web is active switches the current session.
 Reloading `:colorscheme midnight-web` reapplies the selected variant. Supported
-values are `classic`, `deep`, and `soft`.
+values are `classic`, `deep`, `soft`, and `light`.
+
+To use Midnight Web Light:
+
+```lua
+require("midnight-web").setup({ variant = "light" })
+vim.cmd.colorscheme("midnight-web")
+```
+
+Light sets Neovim's `background` to `light`; the dark variants set it to `dark`.
 
 ## Variants
 
@@ -61,6 +70,7 @@ values are `classic`, `deep`, and `soft`.
 | Classic | `#080F1C` | `#101B2B` | `#233750` | Default palette |
 | Deep | `#050A14` | `#0C1626` | `#1C2D44` | Darker surfaces; Classic's syntax colors |
 | Soft | `#0A1320` | `#121D2D` | `#263950` | Lifted surfaces and softer accents |
+| Light | `#F5F7FB` | `#FFFFFF` | `#D9E5F2` | Cool daylight and muted chromatic accents |
 
 The shared semantic map uses rose for keywords, blue for functions, grey-cyan
 for types, sage for strings, amber for numbers, lavender for constants, peach
@@ -72,6 +82,22 @@ for its theme and installation instructions.
 
 tmux is also supported; see the [tmux theme README](extras/tmux/README.md) for
 the Catppuccin-inspired Classic status line and installation instructions.
+
+Light uses `#EAF0F7` for the active line and `#D8E0EB` for borders, with the
+following text and syntax colors:
+
+| Role | Color |
+| --- | --- |
+| Text and variables | `#243247` |
+| Comments and secondary text | `#5A6B81` |
+| Keywords and control flow | `#B73E54` |
+| Functions and methods | `#2864A0` |
+| Types and interfaces | `#287486` |
+| Strings | `#3A7858` |
+| Numbers | `#94601B` |
+| Constants and enum members | `#7953A2` |
+| Decorators and annotations | `#A8523C` |
+| Properties and attributes | `#536BA5` |
 
 ## Integrations
 
@@ -98,6 +124,8 @@ To exercise installed Tree-sitter parsers against the fixtures in
 ```sh
 nvim --headless -u NONE --cmd 'set runtimepath^=.' -l tests/check_treesitter.lua
 ```
+
+Add `--cmd 'let g:midnight_web_variant="light"'` to check Light instead of Classic.
 
 CSS parser validation can be run in an isolated temporary directory with
 `sh tests/check_css_isolated.sh`. It requires nvim-treesitter and its Tree-sitter

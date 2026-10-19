@@ -23,7 +23,8 @@ vim.treesitter.language.register("json", "jsonc")
 vim.treesitter.language.register("tsx", { "typescriptreact", "typescript.tsx" })
 vim.treesitter.language.register("yaml", "yml")
 
-require("midnight-web").setup({ variant = "classic" })
+local variant = vim.g.midnight_web_variant or "classic"
+require("midnight-web").setup({ variant = variant })
 vim.cmd.colorscheme("midnight-web")
 
 local cases = {
@@ -75,7 +76,7 @@ local cases = {
   },
 }
 
-local palette = require("midnight-web.palette").classic
+local palette = require("midnight-web.palette")[variant]
 local role_colors = {
   keyword = palette.red,
   ["keyword.conditional"] = palette.red,

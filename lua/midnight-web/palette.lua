@@ -44,6 +44,40 @@ end
 return {
   classic = classic,
 
+  -- Cool daylight surfaces with muted accents. Keep every role explicit so
+  -- Light cannot inherit a dark diagnostic or diff background from Classic.
+  light = {
+    bg = "#F5F7FB",
+    surface = "#FFFFFF",
+    surface_alt = "#EAF0F7",
+    selection = "#D9E5F2",
+    line = "#EAF0F7",
+    border = "#D8E0EB",
+    tree_line = "#8190A4",
+
+    fg = "#243247",
+    fg_soft = "#243247",
+    muted = "#5A6B81",
+
+    red = "#B73E54",
+    red_error = "#B73E54",
+    blue = "#2864A0",
+    cyan = "#287486",
+    green = "#3A7858",
+    amber = "#94601B",
+    lavender = "#7953A2",
+    peach = "#A8523C",
+    periwinkle = "#536BA5",
+
+    error_bg = "#F8E9ED",
+    warning_bg = "#F8F0E2",
+    info_bg = "#EAF0F7",
+    success_bg = "#E8F2EC",
+    diff_add = "#E8F2EC",
+    diff_delete = "#F8E9ED",
+    diff_change = "#EAF0F7",
+  },
+
   -- Preserve Classic's full semantic foreground palette and darken only the
   -- editor surfaces. The existing foreground contrast therefore increases.
   deep = derive({

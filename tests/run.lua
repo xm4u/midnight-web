@@ -52,6 +52,9 @@ for name, expected in pairs({
   check(palette[name] == expected, "Classic palette color changed: " .. name)
 end
 for variant, colors in pairs(palettes) do
+  for name in pairs(palette) do
+    check(colors[name] ~= nil, variant .. " palette is missing role: " .. name)
+  end
   for name, color in pairs(colors) do
     rgb(color)
     check(type(name) == "string", variant .. " palette entries must have string names")
@@ -203,10 +206,15 @@ check(vim.fn.filereadable(root .. "/queries/css/highlights.scm") == 1, "CSS unit
 
 for variant, colors in pairs(palettes) do
   theme.setup({ variant = variant })
+  local background = variant == "light" and "light" or "dark"
+  check(vim.o.background == background, variant .. " background option did not switch")
   check(vim.g.colors_name == "midnight-web", variant .. " setup did not keep the colorscheme active")
   check(theme.get_variant() == variant, variant .. " variant was not retained")
   check(highlight("Normal").bg == tonumber(colors.bg:sub(2), 16), variant .. " background did not load")
   check(highlight("NormalFloat").bg == tonumber(colors.surface:sub(2), 16), variant .. " surface did not load")
+  check(highlight("CursorLine").bg == tonumber(colors.line:sub(2), 16), variant .. " active line did not load")
+  check(highlight("Visual").bg == tonumber(colors.selection:sub(2), 16), variant .. " selection did not load")
+  check(highlight("FloatBorder").fg == tonumber(colors.border:sub(2), 16), variant .. " border did not load")
   check(
     highlight("SnacksPickerGitStatusUntracked").fg == tonumber(colors.fg_soft:sub(2), 16),
     variant .. " untracked Snacks Explorer filenames should remain readable"
@@ -233,10 +241,44 @@ for variant, colors in pairs(palettes) do
   vim.cmd.colorscheme("midnight-web")
   check(next(highlight("MidnightWebReloadProbe")) == nil, variant .. " reload did not clear stale highlight groups")
   check(theme.get_variant() == variant, variant .. " selection was lost on colorscheme reload")
+  check(vim.o.background == background, variant .. " background option was lost on colorscheme reload")
+end
+
+-- Cross the light/dark boundary repeatedly in a fixed order: setup() reloads
+-- an active colorscheme and changing 'background' can also trigger a reload.
+for _, variant in ipairs({ "light", "deep", "light", "soft", "light", "classic" }) do
+  theme.setup({ variant = variant })
+  local colors = palettes[variant]
+  check(vim.o.background == (variant == "light" and "light" or "dark"), variant .. " transition left the wrong background option")
+  check(highlight("Normal").bg == tonumber(colors.bg:sub(2), 16), variant .. " transition left stale editor colors")
+  check(highlight("DiagnosticVirtualTextError").bg == tonumber(colors.error_bg:sub(2), 16), variant .. " transition left stale diagnostic colors")
+  check(highlight("DiffAdd").bg == tonumber(colors.diff_add:sub(2), 16), variant .. " transition left stale diff colors")
+  check(highlight("SnacksPickerPrompt").bg == tonumber(colors.surface:sub(2), 16), variant .. " transition left stale Snacks colors")
+end
+
+-- The global selector is also supported without calling setup().
+vim.g.midnight_web_variant = "light"
+vim.cmd.colorscheme("midnight-web")
+check(theme.get_variant() == "light" and vim.o.background == "light", "global selector did not load Light")
+check(highlight("Normal").bg == 0xF5F7FB, "Light editor background differs from the supplied palette")
+check(highlight("NormalFloat").bg == 0xFFFFFF, "Light panel background differs from the supplied palette")
+for group, expected in pairs({
+  Identifier = 0x243247,
+  Comment = 0x5A6B81,
+  Keyword = 0xB73E54,
+  Function = 0x2864A0,
+  Type = 0x287486,
+  String = 0x3A7858,
+  Number = 0x94601B,
+  ["@constant"] = 0x7953A2,
+  ["@attribute"] = 0xA8523C,
+  ["@property"] = 0x536BA5,
+}) do
+  check(highlight(group).fg == expected, "Light " .. group .. " differs from the supplied palette")
 end
 
 theme.setup({ variant = "classic" })
 local invalid = pcall(theme.setup, { variant = "neon" })
 check(not invalid and theme.get_variant() == "classic", "invalid variant should fail without changing Classic")
 
-print("Midnight Web Classic, Deep, and Soft: all checks passed")
+print("Midnight Web Classic, Deep, Soft, and Light: all checks passed")

@@ -6,6 +6,7 @@ local variants = {
   classic = true,
   deep = true,
   soft = true,
+  light = true,
 }
 
 function M.setup(opts)
@@ -13,7 +14,7 @@ function M.setup(opts)
   assert(type(opts) == "table", "midnight-web.setup expects an options table")
 
   local variant = opts.variant or M.variant
-  assert(variants[variant], "Midnight Web variant must be 'classic', 'deep', or 'soft'")
+  assert(variants[variant], "Midnight Web variant must be 'classic', 'deep', 'soft', or 'light'")
 
   M.variant = variant
   vim.g.midnight_web_variant = variant
