@@ -67,6 +67,12 @@ for types, sage for strings, amber for numbers, lavender for constants, peach
 for annotations, and periwinkle for properties. Palette values live in
 `lua/midnight-web/palette.lua`.
 
+Ghostty is also supported; see the [Ghostty theme README](extras/ghostty/README.md)
+for its theme and installation instructions.
+
+tmux is also supported; see the [tmux theme README](extras/tmux/README.md) for
+the Catppuccin-inspired Classic status line and installation instructions.
+
 ## Integrations
 
 The colorscheme defines standard Vim highlight groups, Tree-sitter captures,
