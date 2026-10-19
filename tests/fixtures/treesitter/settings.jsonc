@@ -1,0 +1,9 @@
+{
+  // JSONC adds comments but keeps JSON strings and keys distinct.
+  "name": "Midnight Web",
+  "active": true,
+  "retryLimit": 3,
+  "accent": "#D97B87",
+  "fallback": null,
+  "features": ["semantic colors", "Tree-sitter"]
+}

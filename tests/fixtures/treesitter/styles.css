@@ -1,0 +1,29 @@
+:root {
+  --surface: #101b2b;
+  --ink: #cbd6e6;
+  --accent: rgb(134 182 224 / 92%);
+  color-scheme: dark;
+}
+
+@media screen and (min-width: 48rem) {
+  body.page > main#content {
+    padding: 1.25rem;
+  }
+
+  .page > main {
+    max-width: min(72rem, 90vw);
+    margin-inline: auto;
+  }
+}
+
+#content[data-state="ready"] {
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--accent), transparent 55%);
+  border-radius: 0.75rem;
+}
+
+.summary::before {
+  content: "•";
+  margin-inline-end: 0.5rem;
+}

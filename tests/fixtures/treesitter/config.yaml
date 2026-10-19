@@ -1,0 +1,25 @@
+name: midnight-web
+variant: classic
+enabled: true
+owner: &owner
+  team: editor-platform
+  contact: "dev@example.test"
+release:
+  tag: !release "v1.0.0"
+  notes: >-
+    A calm dark theme with clear semantic color roles and readable comments.
+palette:
+  background: "#080F1C"
+  foreground: "#CBD6E6"
+  accents:
+    keyword: "#D97B87"
+    function: "#86B6E0"
+    type: "#9CC2CF"
+    string: "#A4C2A4"
+servers:
+  - name: typescript
+    settings: *owner
+  - name: python
+    settings: *owner
+timeout_ms: 250
+fallback: null

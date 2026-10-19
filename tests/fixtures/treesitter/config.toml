@@ -1,0 +1,22 @@
+title = "Midnight Web"
+enabled = true
+retry_limit = 4
+release_date = 2026-10-19
+features = ["treesitter", "lsp", "syntax"]
+
+[editor.colors]
+background = "#080F1C"
+foreground = "#CBD6E6"
+keyword = "#D97B87"
+
+[editor.preview]
+show_semantic_tokens = true
+indent_guides = false
+
+[[languages]]
+name = "typescript"
+enabled = true
+
+[[languages]]
+name = "rust"
+enabled = false

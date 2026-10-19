@@ -1,0 +1,49 @@
+*midnight-web.txt*  Midnight Web colorscheme
+
+                         MIDNIGHT WEB
+
+Midnight Web is a Lua colorscheme plugin for Neovim with Classic, Deep, and
+Soft variants. Classic is the default. It has no third-party runtime
+dependencies.
+
+=============================================================================
+INSTALLATION                                              *midnight-web-install*
+
+Install this repository with a Neovim plugin manager, then load the colorscheme:
+
+    :colorscheme midnight-web
+
+For lazy.nvim, call |midnight-web.setup()| before loading the colorscheme.
+
+=============================================================================
+CONFIGURATION                                          *midnight-web-config*
+
+                                                        *midnight-web.setup()*
+    require("midnight-web").setup({ variant = "deep" })
+
+Supported variants are "classic", "deep", and "soft". Classic is selected
+when no variant is configured. Calling setup() while Midnight Web is active
+switches the current session. Reloading the colorscheme reapplies the selected
+variant.
+
+    vim.cmd.colorscheme("midnight-web")
+
+=============================================================================
+INTEGRATIONS                                      *midnight-web-integrations*
+
+The colorscheme defines standard Vim highlight groups, Tree-sitter captures,
+and LSP semantic-token groups. CSS and TOML query extensions are included.
+Tree-sitter parsers and LSP servers are not installed or configured by this
+plugin.
+
+Snacks.nvim is optional. Its Explorer tree guides and prompt are styled when
+the corresponding highlight groups are available.
+
+=============================================================================
+PALETTES                                                *midnight-web-palettes*
+
+Classic uses #080F1C for the background, #101B2B for surfaces, and #233750 for
+selection. Deep uses #050A14, #0C1626, and #1C2D44. Soft uses #0A1320,
+#121D2D, and #263950. See the project README for the semantic color map.
+
+vim:tw=78:ts=8:ft=help:norl:

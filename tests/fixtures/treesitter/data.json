@@ -1,0 +1,11 @@
+{
+  "name": "Midnight Web",
+  "enabled": true,
+  "owner": null,
+  "variants": ["classic", "preview"],
+  "theme": { "foreground": "#CBD6E6", "accent": "#D97B87" },
+  "contrast": {
+    "text": 13.05,
+    "comment": 5.01
+  }
+}

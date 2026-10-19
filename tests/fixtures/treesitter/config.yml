@@ -1,0 +1,15 @@
+service: midnight-web-preview
+replicas: 2
+debug: false
+description: 'Lightweight local preview'
+labels: &labels
+  app: midnight-web
+  tier: frontend
+deploy:
+  labels: *labels
+  ports:
+    - name: http
+      number: 8080
+    - name: metrics
+      number: 9090
+healthcheck: null
